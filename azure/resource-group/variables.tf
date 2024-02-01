@@ -5,3 +5,6 @@ variable "rg-name" {
 variable "rg-location" {
   description = "Azure location where the resource group will be created."
 }
+variable "environment" {
+  description = "Azure location where the resource group will be created."
+}

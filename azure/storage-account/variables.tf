@@ -13,7 +13,9 @@ variable "replication-type" {
 variable "account-tier" {
   
 }
-
+variable "environment" {
+  
+}
 variable "tags" {
   type = map(string)
 
