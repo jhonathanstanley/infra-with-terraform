@@ -8,6 +8,6 @@ jobs:
   deploy-shared-db:
     uses: jhonathanstanley/infra-with-terraform/.github/workflows/terraform-plan.yaml@templates
     with:
-      working-dir: terraform/azure/resource-group
+      working-dir: terraform/azure/resource-group@templates
       tfvars-dev-path: jhonathanstanley/infra-with-terraform/pipelines-configs/data-platform/resource-group/dev.tfvars@master
       tfvars-prod-path: jhonathanstanley/infra-with-terraform/pipelines-configs/data-platform/resource-group/prod.tfvars@master
