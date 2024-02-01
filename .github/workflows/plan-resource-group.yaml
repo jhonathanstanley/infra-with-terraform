@@ -1,7 +1,9 @@
 name: Plan azure resource group
 
 on:
-    push: 
+    push:
+        branches:
+            - '!master'
         paths: 
             - 'azure/resource-group/**'
 
