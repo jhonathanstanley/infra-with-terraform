@@ -3,7 +3,7 @@ name: Plan azure resource group
 on:
     push: 
         paths: 
-            - 'resource-group/**'
+            - 'azure/resource-group/**'
 
 env: 
     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -16,7 +16,7 @@ jobs:
         name: 'terraform apply dev'
         runs-on: ubuntu-latest
         env:
-          TF_WORKING_DIR: 'resource-group'
+          TF_WORKING_DIR: 'azure/resource-group'
     
         defaults:
           run:
@@ -50,7 +50,7 @@ jobs:
         name: 'terraform plan prod'
         runs-on: ubuntu-latest
         env:
-          TF_WORKING_DIR: 'resource-group'
+          TF_WORKING_DIR: 'azure/resource-group'
     
         defaults:
           run:
