@@ -13,7 +13,7 @@ env:
 
 jobs:
     apply-dev:
-        name: 'terraform apply dev'
+        name: 'terraform plan dev'
         runs-on: ubuntu-latest
         env:
           TF_WORKING_DIR: 'azure/resource-group'
@@ -25,7 +25,7 @@ jobs:
     
         steps:
           - name: Checkout
-            uses: actions/checkout@v2
+            uses: actions/checkout@v3
     
           - name: Setup Terraform
             uses: hashicorp/setup-terraform@v3
@@ -59,7 +59,7 @@ jobs:
     
         steps:
           - name: Checkout
-            uses: actions/checkout@v2
+            uses: actions/checkout@v3
     
           - name: Setup Terraform
             uses: hashicorp/setup-terraform@v3
