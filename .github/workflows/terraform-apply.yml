@@ -1,11 +1,17 @@
-name: Apply azure resource group
+name: Apply Terraform Resource
 
 on:
-    push:
-        branches:
-            - 'master'
-        paths: 
-            - 'azure/resource-group/**'
+  workflow_call:
+    inputs:
+      working-dir:
+        required: true
+        type: string
+      tfvars-dev-path:
+        required: true
+        type: string
+      tfvars-prod-path:
+        required: true
+        type: string      
 
 env: 
     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -18,12 +24,12 @@ jobs:
         name: 'terraform apply dev'
         runs-on: ubuntu-latest
         env:
-          TF_WORKING_DIR: 'azure/resource-group'
+          TF_WORKING_DIR: '${{ inputs.working-dir }}'
     
         defaults:
           run:
             shell: bash
-            working-directory: ${{ env.TF_WORKING_DIR }}
+            working-directory: ${{ inputs.working-dir }}
     
         steps:
           - name: Checkout
@@ -42,20 +48,20 @@ jobs:
             id: validate
             run: terraform validate -no-color
     
-          - name: Terraform Apply
-            run: terraform apply --auto-approve -var-file="config/dev.tfvars"
-
+          - name: Terraform apply
+            run: terraform apply --auto-approve -var-file="${{ inputs.tfvars-dev-path }}"
 
     apply-prod:
-        name: 'terraform apply prod'
+        name: 'terraform plan prod'
+        needs: apply-dev
         runs-on: ubuntu-latest
         env:
-          TF_WORKING_DIR: 'azure/resource-group'
+          TF_WORKING_DIR: '${{ inputs.working-dir }}'
     
         defaults:
           run:
             shell: bash
-            working-directory: ${{ env.TF_WORKING_DIR }}
+            working-directory: ${{ inputs.working-dir }}
     
         steps:
           - name: Checkout
@@ -74,6 +80,5 @@ jobs:
             id: validate
             run: terraform validate -no-color
     
-          - name: Terraform Apply
-            run: terraform apply --auto-approve -var-file="config/prod.tfvars"
-           
+          - name: Terraform apply
+            run: terraform apply --auto-approve -var-file="${{ inputs.tfvars-prod-path }}"
