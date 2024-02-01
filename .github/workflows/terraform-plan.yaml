@@ -11,7 +11,28 @@ on:
         type: string
       tfvars-prod-path:
         required: true
-        type: string      
+        type: string    
+      client_id:
+        required: true
+        type: string
+      client_secret:
+        required: true
+        type: string
+      tenant_id:
+        required: true
+        type: string
+      subscription_id:
+        required: true
+        type: string
+      
+  
+        
+
+env: 
+ARM_CLIENT_ID: ${{ inputs.client_id }}
+ARM_TENANT_ID: ${{ inputs.tenant_id }}
+ARM_CLIENT_SECRET: ${{ inputs.client_secret}}
+ARM_SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
 
 jobs:
     plan-dev:
